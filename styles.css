@@ -1,0 +1,106 @@
+@font-face {
+    font-family: "Sketchy";
+    src: url('sketchy/sketchy.ttf');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+:root {
+    --sketch: "Sketchy", 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+h1 {
+    text-align: center;
+    position: relative;
+    font-family: var(--sketch);
+    top: 48px;
+    font-size: 48px;
+}
+
+.tic-tac-toe-board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    padding: 8px;
+    position: relative;
+    margin: 120px auto;
+    width: 500px;
+    height: 500px;
+    border: 2px solid black;
+    z-index: -1;
+}
+
+.tic-tac-toe-board *{
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    font-size: 72px;
+    font-family: var(--sketch);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.upper-right, .middle-right, .bottom-right {
+    border-right: none;
+}
+
+.bottom-left, .bottom-middle, .bottom-right {
+    border-bottom: none;
+}
+
+dialog {
+    width: 500px;
+    height: 500px;
+    margin: 177px auto;
+    z-index: 1;
+    padding: 8px;
+}
+
+input {
+    padding: 8px 16px;
+    background-color: #bbb;
+    margin: 16px auto;
+}
+
+button {
+    margin-top: 32px;
+    padding: 16px 24px;
+    background-color: hsl(244, 50%, 100%);
+    border: 2px solid black;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.5s;
+}
+
+button:hover {
+    transform: rotate(6deg);
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 48px auto;
+}
+
+span {
+    font-weight: bold;
+    font-family: var(--sketch);
+    font-size: 24px;
+}
+
+.container {
+    margin: -32px auto;
+    width: fit-content;
+}
+
