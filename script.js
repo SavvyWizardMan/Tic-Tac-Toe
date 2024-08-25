@@ -1,18 +1,3 @@
-// const inputs = document.querySelectorAll("input");
-// const span = document.querySelector('.player-turn');
-
-// document.querySelector('button').addEventListener('click', () => {
-
-//     for (let i of inputs) {
-//         if (i.value === "") {
-//             return;
-//         }
-//     }
-
-//     document.querySelector('dialog').style.zIndex = -1;
-//     document.querySelector('.tic-tac-toe-board').style.zIndex = 1;
-//     span.innerText = `Player ${inputs[0].value} Turn (X)`;
-// });
 
 // function Game() {
 //     const gameboard = ["","","","","","","","",""];
@@ -55,120 +40,140 @@
 //     }
 // })());
 
+const inputs = document.querySelectorAll("input");
+const span = document.querySelector('.player-turn');
+document.querySelector('button[type="submit"]').addEventListener('click', () => {
+
+    for (let i of inputs) {
+        if (i.value === "") {
+            return;
+        }
+    }
+
+    document.querySelector('dialog').style.zIndex = -1;
+    document.querySelector('.tic-tac-toe-board').style.zIndex = 1;
+    span.innerText = `Player ${inputs[0].value} Turn (X)`;
+});
+
 const Gameboard = {
     gameboard: ["/", "/", "/", "/", "/", "/", "/", "/", "/"],
     player1: "X",
     player2: "O",
+    winner: false,
     playGame: function() {
-        let h = 0;
+        const divs = document.querySelectorAll('.tic-tac-toe-board *');
+        const restartBtn = document.querySelector('.restart');
         let prev = 0;
-        while(h < 9) {
-            let placement = prev;
-            let nextPlayer = player();
-            let stringPlacement = "";
-            const horArr = [[],[],[]];
-            const vertArr = [[],[],[]];
-            const diagArr = [[],[]];
+            divs.forEach((div) => {
+                div.addEventListener('click', () => {                       
 
-            if (nextPlayer === this.player2) {
-                //player2 is up
-                stringPlacement = prompt("player2: choose tile (0-8) [type \"end\" to end]");
-            } else {
-                //player1 is up
-                stringPlacement = prompt("player1: choose tile (0-8) [type \"end\" to end]");
-            }
+                    if (div.innerText === this.player1 || div.innerText === this.player2) {
+                        alert("There is already a piece there");
+                        return;
+                    }
 
-            placement = Number(stringPlacement);
-            prev = placement;
-            
-            if (this.gameboard[placement] === this.player1 || this.gameboard[placement] === this.player2) {
-                alert("There is already a piece there");
-                continue;
-            }
+                        let placement = prev;
+                        let nextPlayer = player();
+                        const horArr = [[],[],[]];
+                        const vertArr = [[],[],[]];
+                        const diagArr = [[],[]];
+                        placement = Number(div.getAttribute('data-index'));
 
-            if (stringPlacement === "end") {
-                return;
-            } else if (typeof placement !== "number" || isNaN(placement) || (placement < 0 || placement > 8)) {
-                alert('that is not a proper index');
-                continue;
-            } 
-            
-            this.gameboard.splice(placement, 1, nextPlayer);
-            let str = "";
+                        if (nextPlayer === this.player1) {
+                            span.innerText = `Player ${inputs[1].value} Turn (${this.player2})`;
+                        } else {
+                            span.innerText = `Player ${inputs[0].value} Turn (${this.player1})`
+                        }
 
-            for (let i = 0; i < this.gameboard.length; i++) {
-                if (i % 3 === 0 && i !== 0) {
-                    str += "\n"; 
-                    str += this.gameboard[i] + " ";
-                } else {
-                    str += this.gameboard[i] + " ";
-                }
-            }
+                        prev = placement;
 
-            this.gameboard = this.gameboard.filter((e) => e !== " ");
+                        div.innerText = nextPlayer;
+                        
+                        this.gameboard.splice(placement, 1, nextPlayer);
 
-            console.log(str);
+                        function player() {
+                            if (Gameboard.gameboard[placement] === "X") {
+                                return Gameboard.player2;
+                            } else {
+                                return Gameboard.player1;
+                            }
+                        }
 
-            function player() {
-                if (Gameboard.gameboard[placement] === "X") {
-                    return Gameboard.player2;
-                } else {
-                    return Gameboard.player1;
-                }
-            }
+                        // can't think of how to make a loop 
+                        horArr[0][0] = this.gameboard[0];
+                        horArr[0][1] = this.gameboard[1];
+                        horArr[0][2] = this.gameboard[2];
+                        horArr[1][0] = this.gameboard[3];
+                        horArr[1][1] = this.gameboard[4];
+                        horArr[1][2] = this.gameboard[5];
+                        horArr[2][0] = this.gameboard[6];
+                        horArr[2][1] = this.gameboard[7];
+                        horArr[2][2] = this.gameboard[8];
 
-            // can't think of how to make a loop 
-            horArr[0][0] = this.gameboard[0];
-            horArr[0][1] = this.gameboard[1];
-            horArr[0][2] = this.gameboard[2];
-            horArr[1][0] = this.gameboard[3];
-            horArr[1][1] = this.gameboard[4];
-            horArr[1][2] = this.gameboard[5];
-            horArr[2][0] = this.gameboard[6];
-            horArr[2][1] = this.gameboard[7];
-            horArr[2][2] = this.gameboard[8];
+                        vertArr[0][0] = this.gameboard[0];
+                        vertArr[0][1] = this.gameboard[3];
+                        vertArr[0][2] = this.gameboard[6];
+                        vertArr[1][0] = this.gameboard[1];
+                        vertArr[1][1] = this.gameboard[4];
+                        vertArr[1][2] = this.gameboard[7];
+                        vertArr[2][0] = this.gameboard[2];
+                        vertArr[2][1] = this.gameboard[5];
+                        vertArr[2][2] = this.gameboard[8];
 
-            vertArr[0][0] = this.gameboard[0];
-            vertArr[0][1] = this.gameboard[3];
-            vertArr[0][2] = this.gameboard[6];
-            vertArr[1][0] = this.gameboard[1];
-            vertArr[1][1] = this.gameboard[4];
-            vertArr[1][2] = this.gameboard[7];
-            vertArr[2][0] = this.gameboard[2];
-            vertArr[2][1] = this.gameboard[5];
-            vertArr[2][2] = this.gameboard[8];
+                        diagArr[0][0] = this.gameboard[0];
+                        diagArr[0][1] = this.gameboard[4];
+                        diagArr[0][2] = this.gameboard[8];
+                        diagArr[1][0] = this.gameboard[2];
+                        diagArr[1][1] = this.gameboard[4];
+                        diagArr[1][2] = this.gameboard[6];
+                        // help me
 
-            diagArr[0][0] = this.gameboard[0];
-            diagArr[0][1] = this.gameboard[4];
-            diagArr[0][2] = this.gameboard[8];
-            diagArr[1][0] = this.gameboard[2];
-            diagArr[1][1] = this.gameboard[4];
-            diagArr[1][2] = this.gameboard[6];
-            // help me
+                            if (Gameboard.gameboard.every((val) => (val === Gameboard.player1 || val === Gameboard.player2))) {
+                                span.innerText = `Looks like we have a tie!`;
+                                this.winner = true;
+                            }
 
-            for (let i = 0; i < horArr.length; i++) {
-                if (horArr[i].every((val) => (val === this.player1)) || horArr[i].every((val) => (val === this.player2))) {
-                    alert(nextPlayer + " Has won!");
-                    return;
-                } 
-            }
+                            for (let i = 0; i < horArr.length; i++) {
+                                if (horArr[i].every((val) => (val === this.player1)) || horArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${nextPlayer} has won!`;
+                                    this.winner = true;
+                                } 
+                            }
 
-            for (let i = 0; i < vertArr.length; i++) {
-                if (vertArr[i].every((val) => (val === this.player1)) || vertArr[i].every((val) => (val === this.player2))) {
-                    alert(nextPlayer + " Has won!");
-                    return;
-                } 
-            }
+                            for (let i = 0; i < vertArr.length; i++) {
+                                if (vertArr[i].every((val) => (val === this.player1)) || vertArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${nextPlayer} has won!`;
+                                    this.winner = true;
+                                } 
+                            }
 
-            for (let i = 0; i < diagArr.length; i++) {
-                if (diagArr[i].every((val) => (val === this.player1)) || diagArr[i].every((val) => (val === this.player2))) {
-                    alert(nextPlayer + " Has won!");
-                    return;
-                } 
-            }
+                            for (let i = 0; i < diagArr.length; i++) {
+                                if (diagArr[i].every((val) => (val === this.player1)) || diagArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${nextPlayer} has won!`;
+                                    this.winner = true;
+                                } 
+                            }
 
-            h++;
-        }
+                            if (this.winner) {
+                                restartBtn.classList.add('flyin');
+                                document.querySelector('.cover-box').style.zIndex = 2;
+                                restartBtn.style.transform = "scale(1)";
+                                restartBtn.style.marginLeft = "auto";
+                                restartBtn.style.display = "block";
+                            }
+            });
+
+            restartBtn.addEventListener('click', () => {
+                divs.forEach(div => div.innerText = "");
+                span.innerText = `Player ${inputs[0].value} Turn (X)`;
+                document.querySelector('.cover-box').style.zIndex = -1;
+                restartBtn.style.display = "none";
+                restartBtn.style.transform = "scale(0)";
+                restartBtn.style.marginLeft = "-9999px";
+                this.winner = false;
+                this.gameboard = ["/", "/", "/", "/", "/", "/", "/", "/", "/"];
+            });
+        }); 
     }
 }
 
