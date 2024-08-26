@@ -72,7 +72,6 @@ dialog {
     height: 500px;
     margin: 120px auto;
     left: 394px;
-    border: 2px solid black;
     position: absolute;
 }
 
@@ -104,7 +103,7 @@ button[type="submit"]:hover {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
-    top: 44.5%;
+    top: 33%;
     transform: scale(0);
     left: 555px;
     cursor: pointer;
