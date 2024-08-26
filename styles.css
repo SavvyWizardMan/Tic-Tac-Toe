@@ -71,8 +71,10 @@ dialog {
     width: 500px;
     height: 500px;
     margin: 120px auto;
-    left: 394px;
+    top: -123px;
+    left: -2px;
     position: absolute;
+    border: 2px solid black;
 }
 
 input {
