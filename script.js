@@ -134,24 +134,33 @@ const Gameboard = {
                             }
 
                             for (let i = 0; i < horArr.length; i++) {
-                                if (horArr[i].every((val) => (val === this.player1)) || horArr[i].every((val) => (val === this.player2))) {
-                                    span.innerText = `player ${nextPlayer} has won!`;
+                                if (horArr[i].every((val) => (val === this.player1))) {
+                                    span.innerText = `player ${inputs[0].value} has won!`;
                                     this.winner = true;
-                                } 
+                                } else if (horArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${inputs[1].value} has won!`;
+                                    this.winner = true;
+                                }
                             }
 
                             for (let i = 0; i < vertArr.length; i++) {
-                                if (vertArr[i].every((val) => (val === this.player1)) || vertArr[i].every((val) => (val === this.player2))) {
-                                    span.innerText = `player ${nextPlayer} has won!`;
+                                if (vertArr[i].every((val) => (val === this.player1))) {
+                                    span.innerText = `player ${inputs[0].value} has won!`;
                                     this.winner = true;
-                                } 
+                                } else if (vertArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${inputs[1].value} has won!`;
+                                    this.winner = true;
+                                }
                             }
 
                             for (let i = 0; i < diagArr.length; i++) {
-                                if (diagArr[i].every((val) => (val === this.player1)) || diagArr[i].every((val) => (val === this.player2))) {
-                                    span.innerText = `player ${nextPlayer} has won!`;
+                                if (diagArr[i].every((val) => (val === this.player1))) {
+                                    span.innerText = `player ${inputs[0].value} has won!`;
                                     this.winner = true;
-                                } 
+                                } else if (diagArr[i].every((val) => (val === this.player2))) {
+                                    span.innerText = `player ${inputs[1].value} has won!`;
+                                    this.winner = true;
+                                }
                             }
 
                             if (this.winner) {
